@@ -1,0 +1,35 @@
+﻿@model App.Core.Web.ViewModels.Shared.MenuItemViewModel
+
+@{
+
+
+
+    <li class="has-sub">
+        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#@Model.Id"
+            aria-expanded="false" aria-controls="@Model.Id">
+            <i class="mdi @Model.Icon"></i>
+            <span class="nav-text">@Model.Title</span> <b class="caret"></b>
+        </a>
+        <ul class="collapse" id="@Model.Id"
+            data-parent="#sidebar-menu">
+            <div class="sub-menu">
+
+
+                @foreach (var menuItem in this.Model.Submenus)
+                {
+                    if (!String.IsNullOrEmpty(menuItem.Route))
+                    {
+                        @Html.Partial("_MenuItemLink", menuItem)
+                    }
+                    else
+                    {
+                        @Html.Partial("_MenuItemSub", menuItem)
+                    }
+                }
+
+            </div>
+        </ul>
+    </li>
+
+}
+

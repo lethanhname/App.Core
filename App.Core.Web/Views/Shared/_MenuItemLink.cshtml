@@ -1,0 +1,16 @@
+﻿@model App.Core.Web.ViewModels.Shared.MenuItemViewModel
+
+@{
+
+
+    <li>
+        <a class="sidenav-item-link" href="@Model.Route">
+            @if (!string.IsNullOrWhiteSpace(Model.Icon))
+            {
+                <i class="mdi  @Model.Icon"></i>
+            }
+
+            <span class="nav-text">@Model.Title</span>
+        </a>
+    </li>
+}

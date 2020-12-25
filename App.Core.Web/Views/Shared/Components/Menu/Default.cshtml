@@ -1,0 +1,14 @@
+﻿@model App.Core.Web.ViewModels.Shared.MenuViewModel
+
+<ul class="nav sidebar-inner" id="sidebar-menu">
+
+
+    @foreach (var menuItem in this.Model.MenuItems)
+    {
+        @Html.Partial("_MenuItem", menuItem)
+    }
+    
+
+
+
+</ul>

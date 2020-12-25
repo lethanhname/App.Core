@@ -1,0 +1,136 @@
+﻿@model App.Core.Web.AppControllers.MaintenanceDefinition
+<!-- Content Header (Page header) -->
+<div class="breadcrumb-wrapper">
+    <div>
+        <h1>@Model.Title</h1>
+
+        @*<nav aria-label="breadcrumb">
+                <ol class="breadcrumb p-0">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <span class="mdi mdi-home"></span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        App
+                    </li>
+                    <li class="breadcrumb-item" aria-current="page">contacts</li>
+                </ol>
+            </nav>*@
+
+    </div>
+</div>
+
+<!-- Nav -->
+
+@if (this.Model.LinkedItems.Any())
+{
+
+    <ul class="nav nav-tabs nav-style-border pl-0">
+        @foreach (var menuItem in this.Model.LinkedItems)
+        {
+            if (menuItem.IsActive)
+            {
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" aria-selected="true">@menuItem.Title</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@menuItem.Url" aria-selected="false">@menuItem.Title</a>
+                </li>
+            }
+        }
+    </ul>
+}
+<!-- Main content -->
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" role="tabpanel">
+        <div class="row mb-3 ">
+            <div class="col-12">
+                <div class="border-bottom ">
+                    <div class="btn-group " role="group">
+                        @if (!String.IsNullOrEmpty(Model.AddAction))
+                        {
+
+                            <a class="btn btn-square btn-outline-primary border-0" href="@Model.AddAction">
+                                <i class="mdi mdi-plus"></i> Add
+                            </a>
+
+                        }
+                        <a href="@Model.InquiryAction" class="btn btn-square btn-outline-primary border-0"> <i class="mdi mdi-close-box"></i> Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <form class="form-horizontal" method="post">
+
+                            <div class="row">
+                                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                                {
+                                    <div class="col-12">
+                                        <div class="alert alert-danger alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <h5><i class="icon fas fa-ban"></i> Error</h5>
+                                            <div asp-validation-summary="ModelOnly"></div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="row">
+                                @{var partialItemLocation = string.Format("~/Areas/{2}/Views/{0}/{1}.cshtml", this.ViewContext.RouteData.Values["controller"].ToString(), Model.ViewName, this.ViewContext.RouteData.Values["area"].ToString()); }
+                                @Html.Partial(partialItemLocation, Model.Data)
+                            </div>
+                            <div class="row mt-3">
+
+                                @if (!string.IsNullOrWhiteSpace(Model.AddAction))
+                                {
+                                    <button type="submit" name="save" class="btn btn-primary btn-square">
+                                        <i class="mdi mdi-content-save"></i> OK
+                                    </button>
+                                }
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- /.content -->
+@*@if (!String.IsNullOrEmpty(Model.DeleteUrl))
+    {
+        <div id="@Model.ModelName-delete-confirmation" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="categorymodel-delete-confirmation-title">Are you sure?</h4>
+                    </div>
+                    <form action="@Model.DeleteUrl" method="post" novalidate="novalidate">
+                        <div class="form-horizontal">
+                            <div class="modal-body">
+                                Are you sure you want to delete this item?
+                            </div>
+                            <div class="modal-footer">
+                                <span class="btn btn-default" data-dismiss="modal">No, cancel</span>
+                                <button type="submit" class="btn btn-primary pull-right">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }*@
+

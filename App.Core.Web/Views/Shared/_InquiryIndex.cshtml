@@ -1,0 +1,100 @@
+﻿@model App.Core.Web.AppControllers.InquiryDefinition
+<!-- Content Header (Page header) -->
+<div class="breadcrumb-wrapper">
+    <div>
+        <h1>@Model.Title</h1>
+
+        @*<nav aria-label="breadcrumb">
+                <ol class="breadcrumb p-0">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <span class="mdi mdi-home"></span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        App
+                    </li>
+                    <li class="breadcrumb-item" aria-current="page">contacts</li>
+                </ol>
+            </nav>*@
+
+    </div>
+</div>
+
+<!-- Nav -->
+
+@if (this.Model.LinkedItems.Any())
+{
+
+    <ul class="nav nav-tabs nav-style-border pl-0">
+        @foreach (var menuItem in this.Model.LinkedItems)
+        {
+            if (menuItem.IsActive)
+            {
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" aria-selected="true">@menuItem.Title</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@menuItem.Url" aria-selected="false">@menuItem.Title</a>
+                </li>
+            }
+        }
+    </ul>
+}
+<!-- Main content -->
+<div class="tab-content">
+    <div class="tab-pane fade show active" role="tabpanel">
+        <div class="row mb-3 ">
+            
+                <div class="col-12">
+                    <div class="border-bottom ">
+                        <div class="btn-group " role="group" aria-label="Basic example">
+                            @if (!String.IsNullOrEmpty(Model.MaintenanceAction))
+                            {
+                                <a class="btn btn-square btn-outline-primary border-0" href="@Model.MaintenanceAction">
+                                    <i class="mdi mdi-plus"></i> Add
+                                </a>
+                            }
+                            @if (!String.IsNullOrEmpty(Model.BackToAction))
+                            {
+                                <a href="@Model.BackToAction" class="btn btn-square btn-outline-primary border-0"> <i class="mdi mdi-close-box"></i> Cancel</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+
+                <div class="hoverable-data-table">
+                    <table id="@Model.ModelName-data-table" class="table table-hover nowrap border" style="width:100%">
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.content -->
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            var readDataUrl = '@Model.ReadDataAction';
+            var editUrl = '@Model.MaintenanceAction';
+            var deleteUrl = '@Model.DeleteAction';
+            var columns = @Html.Raw(Model.GridColumns);
+            var keyColumns = @Html.Raw(Model.KeyColumns);
+            //var gridheight = calcEnquiryGridHeight();
+            var formKeys = @Html.Raw(Model.FormKeys);
+            JqueryDataTable("#@Model.ModelName-data-table", readDataUrl, editUrl, deleteUrl, keyColumns, columns, 0, formKeys);
+        });
+    </script>
+}

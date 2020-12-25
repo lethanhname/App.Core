@@ -1,0 +1,16 @@
+﻿@model App.Core.Web.ViewModels.Shared.MenuItemViewModel
+
+@{
+
+
+
+    @if (!String.IsNullOrEmpty(Model.Route))
+    {
+        @Html.Partial("_MenuItemLink", Model)
+
+    }
+    else
+    {
+        @Html.Partial("_MenuItemSub", Model)
+    }
+}
