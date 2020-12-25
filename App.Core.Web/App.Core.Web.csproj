@@ -3,6 +3,17 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <!-- NuGet settings -->
+        <PackageId>App.Core.Web</PackageId>
+        <PackageTags>ASP.NET Corelib</PackageTags>
+        <PackageReleaseNotes>https://github.com/lethanhname/App.Core/blob/main/README.md</PackageReleaseNotes>
+        <PackageProjectUrl>https://github.com/lethanhname/App.Core</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <!-- <PackageIcon>giraffe-64x64.png</PackageIcon> -->
+        <!-- <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance> -->
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/lethanhname/App.Core</RepositoryUrl>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <OutputPath>..\..\..\App.Angular\bin\Debug\netcoreapp3.1\Modules\</OutputPath>
