@@ -16,6 +16,7 @@ env:
   GITHUB_FEED: https://nuget.pkg.github.com/lethanhname/
   GITHUB_USER: lethanhnam010490@gmail.com
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NUGET_URL: ${{ secrets.NUGET_URL }}
   # Official NuGet Feed settings
 #   NUGET_FEED: https://api.nuget.org/v3/index.json
 #   NUGET_KEY: ${{ secrets.NUGET_KEY }}
@@ -32,6 +33,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.301
+      - name: Ensure GitHub NuGet Source
+        run: |
+            dotnet nuget add source ${{ env.NUGET_URL }} \
+            -n github \
+            -u ${{ env.GITHUB_USER }} \
+            -p ${{ env.GITHUB_TOKEN }} \
+            --store-password-in-clear-text
       - name: Restore
         run: dotnet restore
       - name: Build
@@ -47,6 +55,11 @@ jobs:
         with:
           name: nupkg
           path: ./nupkg/*.nupkg
+      - name: Cleanup
+        if: always()
+        continue-on-error: true
+        run: |
+            dotnet nuget remove source github
   prerelease:
     needs: build
     if: github.ref == 'refs/heads/develop'
