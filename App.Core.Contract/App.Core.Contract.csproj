@@ -16,7 +16,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="App.CoreLib.EF" version="2020.12.0"/>
+      <PackageReference Include="App.CoreLib.EF" version="*"/>
     </ItemGroup>
 
 </Project>
